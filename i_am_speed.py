@@ -41,6 +41,7 @@ def things_dodged(count):
 def objects(objx,objy,objw,objh,color):
 	 pygame.draw.rect(gameDisplay, block_color, [objx,objy,objw,objh])
 
+
 def car(x,y):
 	gameDisplay.blit(carImg,(x,y))
 
@@ -139,7 +140,21 @@ def game_intro():
 		button("QUIT!",525,400,150,75,red,bright_red,quitgame)
 		pygame.display.update()
 		clock.tick(15)
-				
+
+def flicker(num):
+	if num ==0:
+	
+
+		pygame.draw.rect(gameDisplay, red, (0, 0, display_width, display_height), 10)
+		pygame.display.update()
+	if num ==1:
+	
+
+		pygame.draw.rect(gameDisplay, blue, (0, 0, display_width, display_height), 10)
+		pygame.display.update()
+
+
+
 def game_loop():	
 	global pause
 	#play music indefinitely
@@ -165,9 +180,9 @@ def game_loop():
 	        #When key is pressed    
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT:
-					x_change = -5
+					x_change = -10
 				if event.key == pygame.K_RIGHT:
-					x_change = 5
+					x_change = 10
 				if event.key == pygame.K_SPACE:
 					pause = True
 					paused()	
@@ -181,27 +196,33 @@ def game_loop():
 		gameDisplay.fill(white)
 
 	    # objects(objx,objy,objw,objh,color)
+
 		objects(thing_startx,thing_starty, thing_width, thing_height, block_color)
 	    #moving the object below
 		thing_starty += thing_speed
 		car(x,y)
 		things_dodged(dodged)
 	    #To prevent car from going beyond screen(boundary)
+		if x > display_width - car_width-50 or x < 0+50:
+			flicker(0)
 		if x > display_width - car_width or x < 0:
 			crash()
 			game_intro()
 	    #bring object again	
 		if thing_starty > display_height:
 			thing_starty = 0 - thing_height	
-			thing_startx= random.randrange(0,display_width-thing_width)
+			thing_startx= random.randrange(0,display_width-50-thing_width)
 			dodged += 1
 			if thing_speed != 12:
 				thing_speed += 0.5
 			if thing_width != 200:	
 				thing_width += 10	
 	    #objects crashing car
+		if y-20 < thing_starty+thing_height:
+			flicker(1)
 		if y < thing_starty+thing_height:
 			if x > thing_startx and x < thing_startx+thing_width or x+car_width>thing_startx and x+car_width<thing_startx+thing_width:
+				flicker()
 				crash()
 				game_intro()	
 
