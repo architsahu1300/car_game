@@ -158,59 +158,59 @@ def game_loop():
 	gameExit = False
 	while not gameExit:
 	    #gets mouse and keyboards info
-	    for event in pygame.event.get():
-	        if event.type == pygame.QUIT:
-	            pygame.QUIT()
-	            quit()
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.QUIT()
+				quit()
 	        #When key is pressed    
-	        if event.type == pygame.KEYDOWN:
-	        	if event.key == pygame.K_LEFT:
-	        		x_change = -5
-	        	if event.key == pygame.K_RIGHT:
-	        		x_change = 5
-	        	if event.key == pygame.K_SPACE:
-	        		pause = True
-	        		paused()	
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LEFT:
+					x_change = -5
+				if event.key == pygame.K_RIGHT:
+					x_change = 5
+				if event.key == pygame.K_SPACE:
+					pause = True
+					paused()	
 	        #When key is released		
-	        if event.type == pygame.KEYUP:
-	        	if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-	        		x_change = 0		
-	    x += x_change
+			if event.type == pygame.KEYUP:
+				if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+					x_change = 0		
+		x += x_change
 
 	    #background        
-	    gameDisplay.fill(white)
+		gameDisplay.fill(white)
 
 	    # objects(objx,objy,objw,objh,color)
-	    objects(thing_startx,thing_starty, thing_width, thing_height, block_color)
+		objects(thing_startx,thing_starty, thing_width, thing_height, block_color)
 	    #moving the object below
-	    thing_starty += thing_speed
-	    car(x,y)
-	    things_dodged(dodged)
+		thing_starty += thing_speed
+		car(x,y)
+		things_dodged(dodged)
 	    #To prevent car from going beyond screen(boundary)
-	    if x > display_width - car_width or x < 0:
-	    	crash()
-	    	game_intro()
+		if x > display_width - car_width or x < 0:
+			crash()
+			game_intro()
 	    #bring object again	
-	    if thing_starty > display_height:
-	    	thing_starty = 0 - thing_height	
-	    	thing_startx= random.randrange(0,display_width-thing_width)
-	    	dodged += 1
-	    	if thing_speed != 12:
-	    		thing_speed += 0.5
-	    	if thing_width != 200:	
-	    		thing_width += 10	
+		if thing_starty > display_height:
+			thing_starty = 0 - thing_height	
+			thing_startx= random.randrange(0,display_width-thing_width)
+			dodged += 1
+			if thing_speed != 12:
+				thing_speed += 0.5
+			if thing_width != 200:	
+				thing_width += 10	
 	    #objects crashing car
-	    if y < thing_starty+thing_height:
-	    	if x > thing_startx and x < thing_startx+thing_width or x+car_width>thing_startx and x+car_width<thing_startx+thing_width:
-	    		crash()
-	    		game_intro()	
+		if y < thing_starty+thing_height:
+			if x > thing_startx and x < thing_startx+thing_width or x+car_width>thing_startx and x+car_width<thing_startx+thing_width:
+				crash()
+				game_intro()	
 
 	    #to show everything in new screen after background processing    
-	    pygame.display.update()
+		pygame.display.update()
 	    #fps
-	    clock.tick(60)
+		clock.tick(60)
 game_intro()	    
 game_loop()
 pygame.quit()
 quit()
- 
+#IMPROVED INDEINTATION 
